@@ -1,0 +1,16 @@
+services:
+  - type: worker
+    name: hackathon-tracker-bot
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python hackathon_bot.py
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: DATA_FILE
+        value: /var/data/hackathons.json
+    # Persistent disks are a paid Render feature.
+    disk:
+      name: hackathon-tracker-data
+      mountPath: /var/data
+      sizeGB: 1
